@@ -1,0 +1,94 @@
+/* page nav / back link */
+.page-nav { padding-top: 40px; padding-bottom: 0; }
+.back-link {
+  font-size: 13px;
+  color: var(--text-dim);
+  transition: color .15s;
+}
+.back-link:hover { color: var(--flow); }
+
+/* phases specific to the agent loop (reuses .conn-status / .dot from lab.css) */
+.phase-deciding .dot,
+.phase-acting .dot { background: var(--flow); animation: blink 1s ease-in-out infinite; }
+.phase-safe { color: var(--safe); }
+.phase-safe .dot { background: var(--safe); }
+.phase-breach { color: var(--breach); }
+.phase-breach .dot { background: var(--breach); }
+
+.agent-body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+@media (max-width: 860px) {
+  .agent-body { grid-template-columns: 1fr; }
+}
+
+.agent-setup { display: flex; flex-direction: column; gap: 16px; }
+
+/* sensitivity dots, shared by legend + trace */
+.sens-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+.sens-read { background: var(--text-faint); }
+.sens-write { background: var(--flow); box-shadow: 0 0 8px var(--flow); }
+.sens-destructive { background: #ff8a5a; box-shadow: 0 0 8px #ff8a5a; }
+.sens-exfil { background: var(--breach); box-shadow: 0 0 8px var(--breach); }
+
+/* tools legend */
+.tools-legend { padding: 14px 16px; }
+.tl-head {
+  font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--text-faint); margin-bottom: 10px;
+}
+.tl-row { display: flex; align-items: center; gap: 10px; padding: 5px 0; }
+.tl-name { font-size: 13px; color: var(--text); }
+.tl-sens { font-size: 11px; color: var(--text-faint); }
+.tl-flag {
+  margin-left: auto; font-size: 10.5px; font-family: var(--mono);
+  padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line);
+}
+.tl-flag.allowed { color: var(--safe); border-color: #35d69b55; background: #35d69b12; }
+.tl-flag.forbidden { color: var(--breach); border-color: #ff5a6a55; background: #ff5a6a12; }
+.tl-flag.off-limits { color: var(--text-faint); }
+
+/* document */
+.doc { overflow: hidden; }
+.doc-head {
+  padding: 10px 14px; border-bottom: 1px solid var(--line);
+  background: var(--panel-2); font-size: 11.5px; color: var(--text-dim);
+}
+.doc-body {
+  margin: 0; padding: 14px 15px; max-height: 260px; overflow: auto;
+  font-family: var(--mono); font-size: 11.5px; line-height: 1.6;
+  color: var(--text-dim); white-space: pre-wrap; word-break: break-word;
+}
+.inject-mark {
+  background: #f5b54422; color: var(--canary);
+  border: 1px solid #f5b54455; border-radius: 4px; padding: 0 2px;
+}
+
+.agent-actions { display: flex; gap: 10px; }
+
+/* trace */
+.agent-trace { padding: 16px 18px; min-height: 200px; }
+.trace-empty { font-size: 13px; margin-top: 6px; }
+.trace-list { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
+.trace-step {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--bg); border: 1px solid var(--line-soft);
+  border-radius: 9px; padding: 9px 12px;
+}
+.trace-step.forbidden { border-color: var(--breach); box-shadow: 0 0 0 1px var(--breach) inset; }
+.trace-step.deciding { border-style: dashed; }
+.ts-num { font-size: 11px; color: var(--text-faint); width: 14px; }
+.ts-tool { font-size: 13px; color: var(--text); }
+.ts-args { font-size: 11px; color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ts-flag { margin-left: auto; font-size: 10.5px; color: var(--breach); white-space: nowrap; }
+.ts-final { font-size: 12px; color: var(--text-dim); }
+
+/* explainer */
+.how-toggle {
+  margin-top: 22px; background: transparent; border: 0; cursor: pointer;
+  color: var(--flow); font-size: 12.5px; padding: 0;
+}
+.how-body { margin-top: 10px; max-width: 70ch; }

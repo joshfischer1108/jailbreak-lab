@@ -1,0 +1,44 @@
+.hero {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--line-soft) 1px, transparent 1px),
+    linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+  background-size: 46px 46px;
+  mask-image: radial-gradient(900px 500px at 60% 0%, #000 0%, transparent 70%);
+  opacity: 0.5;
+}
+
+.hero-inner { position: relative; padding-top: 120px; padding-bottom: 96px; }
+
+.hero-title {
+  font-size: clamp(38px, 7vw, 72px);
+  font-weight: 700;
+  margin-top: 22px;
+  max-width: 15ch;
+}
+.grad {
+  background: linear-gradient(100deg, var(--flow), var(--flow-2) 60%, var(--canary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-lede { margin-top: 22px; font-size: 19px; }
+
+.hero-meta {
+  margin-top: 34px;
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 12.5px;
+  color: var(--text-faint);
+}
+.hero-meta .sep { color: var(--line); }

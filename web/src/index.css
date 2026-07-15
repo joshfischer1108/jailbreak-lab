@@ -1,0 +1,141 @@
+:root {
+  /* Surfaces */
+  --bg: #07090f;
+  --bg-2: #0b0e17;
+  --panel: #10141f;
+  --panel-2: #151a28;
+  --line: #222a3d;
+  --line-soft: #1a2030;
+
+  /* Text */
+  --text: #e6ebf5;
+  --text-dim: #9aa6bd;
+  --text-faint: #64708a;
+
+  /* Accents */
+  --canary: #f5b544;      /* the secret token */
+  --canary-glow: #f5b54455;
+  --flow: #3fb6ff;        /* dataflow / cyan */
+  --flow-2: #7c5cff;      /* violet */
+  --safe: #35d69b;        /* resisted */
+  --breach: #ff5a6a;      /* jailbroken */
+
+  --radius: 14px;
+  --radius-sm: 9px;
+  --mono: "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, Menlo, monospace;
+  --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 700px at 80% -10%, #131b33 0%, transparent 55%),
+    radial-gradient(900px 600px at 5% 10%, #17122b 0%, transparent 50%),
+    var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.55;
+}
+
+h1, h2, h3 { line-height: 1.1; letter-spacing: -0.02em; margin: 0; }
+
+a { color: var(--flow); text-decoration: none; }
+
+code, .mono { font-family: var(--mono); }
+
+/* ---- layout ---- */
+.section { max-width: 1080px; margin: 0 auto; padding: 96px 24px; }
+.section-tight { max-width: 860px; }
+
+.eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--flow);
+  margin-bottom: 14px;
+}
+
+.lede { color: var(--text-dim); font-size: 18px; max-width: 60ch; }
+
+/* ---- panels ---- */
+.panel {
+  background: linear-gradient(180deg, var(--panel) 0%, var(--bg-2) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+
+/* ---- the canary token ---- */
+.token {
+  font-family: var(--mono);
+  font-weight: 600;
+  color: var(--canary);
+  background: var(--canary-glow);
+  border: 1px solid #f5b54455;
+  padding: 2px 8px;
+  border-radius: 6px;
+  text-shadow: 0 0 14px var(--canary-glow);
+}
+
+/* ---- pill / badges ---- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-family: var(--mono);
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--text-dim);
+  background: var(--panel-2);
+}
+.pill.safe { color: var(--safe); border-color: #35d69b44; background: #35d69b12; }
+.pill.breach { color: var(--breach); border-color: #ff5a6a44; background: #ff5a6a12; }
+
+.dot { width: 7px; height: 7px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+
+/* ---- buttons ---- */
+button { font-family: inherit; }
+.btn {
+  cursor: pointer;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  color: var(--text);
+  padding: 10px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  transition: border-color .15s, transform .1s, background .15s;
+}
+.btn:hover { border-color: var(--flow); }
+.btn:active { transform: translateY(1px); }
+.btn.primary { background: linear-gradient(180deg, #1b2740, #131b30); border-color: #2f4a72; }
+.btn.primary:hover { border-color: var(--flow); box-shadow: 0 0 0 1px var(--flow) inset; }
+
+.toggle { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--panel); }
+.toggle button {
+  border: 0; background: transparent; color: var(--text-dim);
+  padding: 8px 16px; font-size: 13px; cursor: pointer; transition: color .15s, background .15s;
+}
+.toggle button.active { color: var(--text); background: var(--panel-2); }
+.toggle button.active.robust { color: var(--safe); }
+.toggle button.active.susceptible { color: var(--breach); }
+
+/* ---- utility ---- */
+.muted { color: var(--text-faint); }
+.mt-8 { margin-top: 8px; }
+.mt-16 { margin-top: 16px; }
+.mt-24 { margin-top: 24px; }
+.grid { display: grid; gap: 16px; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}

@@ -1,0 +1,80 @@
+.challenge { display: flex; flex-direction: column; gap: 20px; }
+
+.attempt-count { font-size: 12.5px; color: var(--text-dim); white-space: nowrap; }
+.attempt-count strong { color: var(--text); }
+
+/* attack input */
+.attack-input { padding: 18px 20px 20px; }
+.attack-textarea {
+  width: 100%;
+  margin-top: 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  padding: 13px 15px;
+  font-size: 13px;
+  line-height: 1.55;
+  resize: vertical;
+}
+.attack-textarea:focus { outline: none; border-color: var(--flow); }
+.attack-textarea:disabled { opacity: 0.6; }
+.attack-actions { margin-top: 12px; display: flex; gap: 10px; }
+
+/* verdict banners */
+.verdict-banner {
+  border-radius: var(--radius);
+  border: 1px solid var(--line);
+  padding: 16px 18px;
+  background: var(--panel);
+}
+.vb-title { font-size: 14px; letter-spacing: 0.02em; }
+.vb-body { color: var(--text-dim); font-size: 14px; margin-top: 6px; }
+.verdict-banner.broken {
+  border-color: var(--breach);
+  background: linear-gradient(180deg, #ff5a6a1a, transparent);
+  box-shadow: 0 0 40px #ff5a6a22;
+}
+.verdict-banner.broken .vb-title { color: var(--breach); }
+.verdict-banner.partial { border-color: var(--canary); background: linear-gradient(180deg, #f5b5441a, transparent); }
+.verdict-banner.partial .vb-title { color: var(--canary); }
+.verdict-banner.refused { border-color: var(--safe); background: linear-gradient(180deg, #35d69b12, transparent); }
+.verdict-banner.refused .vb-title { color: var(--safe); }
+
+/* bridge into the lab */
+.arena-bridge { margin-top: 28px; text-align: center; }
+.hints-locked {
+  color: var(--text-faint);
+  font-size: 13px;
+  margin: 0;
+}
+
+/* surface 2 teaser (link to the agent page) */
+.surface2-teaser {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 28px;
+  padding: 20px 22px;
+  text-decoration: none;
+  color: var(--text);
+  transition: border-color .15s, transform .1s, box-shadow .15s;
+}
+.surface2-teaser:hover {
+  border-color: var(--flow);
+  transform: translateY(-1px);
+  box-shadow: 0 0 0 1px var(--flow) inset;
+}
+.surface2-teaser strong { font-size: 16px; }
+.surface2-go { color: var(--flow); font-size: 13px; white-space: nowrap; }
+
+/* locked lab */
+.lab-locked {
+  margin-top: 8px;
+  padding: 28px 26px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.lab-locked-icon { font-size: 30px; opacity: 0.8; }
