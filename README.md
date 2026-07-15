@@ -1,11 +1,12 @@
-# DeepSeek Red Team Basics
+# LLM Red Team Lab
 
-A hands-on kit for **educational, authorized** red teaming of a locally run LLM
-(DeepSeek R1 and others). It covers the two ways an LLM system gets exploited:
+A hands-on kit for **educational, authorized** red teaming of any locally-run LLM. It works
+with **any OpenAI-compatible model** — Llama, Mistral, Qwen, Gemma, DeepSeek R1, and more —
+and covers the two ways an LLM system gets exploited:
 
 1. **Jailbreaking the model** — real techniques (instruction override, roleplay/DAN,
-   hypothetical framing, encoding, payload splitting, and a DeepSeek R1 reasoning-trace
-   attack) that try to talk the model past its own guardrail.
+   hypothetical framing, encoding, payload splitting, and a reasoning-trace attack aimed at
+   reasoning models like DeepSeek R1) that try to talk the model past its own guardrail.
 2. **Injecting the agent** — indirect prompt injection that steers an agent into a
    forbidden tool call (exfil, destructive, out-of-scope).
 
@@ -13,29 +14,29 @@ A hands-on kit for **educational, authorized** red teaming of a locally run LLM
 tools are mocks, so the techniques are genuine but nothing harmful is ever produced.
 
 Everything runs against a model **you operate locally** (Ollama, LM Studio, vLLM, or any
-OpenAI-compatible endpoint).
+OpenAI-compatible endpoint) — and comparing how different models hold up is the whole point.
 
 > Only test models and systems you own or are authorized to test.
 
-## Two ways to run it
-
-**Web lab** (`web/`) — an interactive page: try to break the model in your own words, then
-unlock a playbook of techniques and watch each attack stream through a live dataflow, with
-any leaked secret highlighted in the real response.
+## Quick start
 
 ```bash
-ollama pull deepseek-r1        # a real reasoning model to attack
+ollama pull deepseek-r1        # a model to attack (any works — see below)
 cd web
 npm install
 npm run dev                    # open http://localhost:5173  (proxies to Ollama)
 ```
 
+Then: try to break the model in your own words, unlock a playbook of jailbreak techniques and
+watch each attack stream through a live dataflow with any leaked secret highlighted, and open
+the **agent injection** page to watch a hidden instruction hijack a tool-using agent.
+
 The model dropdown is populated from your installed Ollama models; switch between them to
 compare how guardrails hold.
 
-### Pull more models to compare
+## Pull more models to compare
 
-The lab (and CLI) work with any OpenAI-compatible model. Comparing across families is the
+The lab works with any OpenAI-compatible model. Comparing across families is the
 best way to see how differently guardrails behave — pull a few and switch between them:
 
 ```bash
@@ -57,42 +58,24 @@ ollama pull mistral-small
 reasoning model (`deepseek-r1`) vs. a safety-tuned one (`llama3.1:8b`) vs. a weak one
 (`mistral:7b`) on the same attack.
 
-**CLI harnesses** (`python/agent_redteam/`) — the same catalog, headless, for scripting or
-CI (exits non-zero if any attack lands).
+## How it connects to your model
 
-```bash
-cd python/agent_redteam
-
-# validate offline (no model needed):
-python3 jailbreak_eval.py --self-test
-python3 agent_harness.py --scenarios scenarios.example.json
-
-# run against your local model:
-python3 jailbreak_eval.py \
-    --endpoint http://localhost:11434/v1/chat/completions \
-    --model deepseek-r1
-```
+The browser calls the relative path `/llm/v1/chat/completions`, which the dev server (and, in
+production, a reverse proxy) forwards to your model server — so there's no CORS to fight and
+no key in the browser. Point it elsewhere with `VITE_LLM_TARGET` (see `web/vite.config.ts`).
 
 ## Layout
 
 ```
-deepseek-red-team-basics/
-├── web/                                 Interactive red-team lab (Vite + React)
-└── python/agent_redteam/
-    ├── jailbreak_eval.py                Fire jailbreak techniques at the model, score leaks
-    ├── jailbreaks.deepseek.json         Technique catalog (why each works + defense)
-    ├── run_local_model.py               Drive a local model through the mock tools
-    ├── agent_harness.py                 Score an agent's tool-call trace
-    ├── mock_tools.py                    Instrumented fake tools (read/write/destructive/exfil)
-    └── scenario*.json                   Injection scenarios
+web/
+├── src/components/   UI — challenge, technique lab, agent-injection page, dataflow pipeline
+├── src/lib/          Real streaming client, leak detection, agent loop + mock tools
+└── src/data/         Jailbreak technique catalog + the agent-injection scenario
 ```
-
-See [`python/agent_redteam/README.md`](python/agent_redteam/README.md) for the CLI details.
 
 ## Requirements
 
-- **Web lab:** Node.js 20.19+ (or 22.12+).
-- **CLI:** Python 3.9+ — standard library only, nothing to install.
+- Node.js 20.19+ (or 22.12+). No API key needed for local Ollama.
 
 ## License
 
