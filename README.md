@@ -79,4 +79,7 @@ web/
 
 ## License
 
-MIT. See [`LICENSE`](LICENSE). You are responsible for how you use it.
+MIT. See [`LICENSE`](LICENSE).
+
+## Responsible Use
+This lab is designed for educational and authorized testing only. The canary secrets are synthetic and the tools are mocks. If you discover a novel bypass in a production model, follow the vendor's disclosure policy.
