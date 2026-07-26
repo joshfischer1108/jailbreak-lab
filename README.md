@@ -22,9 +22,10 @@ OpenAI-compatible endpoint) — and comparing how different models hold up is th
 
 ```bash
 ollama pull deepseek-r1        # a model to attack (any works — see below)
+ollama serve                   # if it isn't already running as a service
 cd web
 npm install
-npm run dev                    # open http://localhost:5173  (proxies to Ollama)
+npm run dev                    # open http://localhost:5173
 ```
 
 Then: try to break the model in your own words, unlock a playbook of jailbreak techniques and
