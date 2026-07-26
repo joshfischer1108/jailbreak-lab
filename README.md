@@ -22,7 +22,7 @@ OpenAI-compatible endpoint) — and comparing how different models hold up is th
 
 ```bash
 ollama pull deepseek-r1        # a model to attack (any works — see below)
-ollama serve                   # if it isn't already running as a service
+# make sure Ollama is running (it usually starts as a service; otherwise: ollama serve)
 cd web
 npm install
 npm run dev                    # open http://localhost:5173
