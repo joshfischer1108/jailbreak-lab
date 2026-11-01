@@ -1,5 +1,5 @@
 // The model dropdown, shared by the challenge and the lab. Options come from the
-// installed-models list; the current value is always shown even if not in the list.
+// installed-models list; nothing is shown that Ollama isn't serving.
 export default function ModelSelect({
   model,
   models,
@@ -18,9 +18,9 @@ export default function ModelSelect({
         className="conn-select mono"
         value={model}
         onChange={(e) => setModel(e.target.value)}
-        disabled={disabled}
+        disabled={disabled || models.length === 0}
       >
-        {!models.includes(model) && <option value={model}>{model}</option>}
+        {models.length === 0 && <option value="">no models found in Ollama</option>}
         {models.map((m) => (
           <option key={m} value={m}>
             {m}

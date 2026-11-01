@@ -1,4 +1,4 @@
-import catalog from "./jailbreaks.deepseek.json";
+import catalog from "./jailbreak-techniques.json";
 import { SECRET } from "../lib/leakDetect";
 
 export type Technique = {
